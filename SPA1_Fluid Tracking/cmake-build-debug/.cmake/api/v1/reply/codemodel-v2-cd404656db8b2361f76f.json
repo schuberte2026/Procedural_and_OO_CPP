@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.29"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "SPA1_Fluid_Tracking",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "SPA1_Fluid_Tracking::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SPA1_Fluid_Tracking-Debug-35219e5251351d5fbc59.json",
+					"name" : "SPA1_Fluid_Tracking",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/schuberte/OneDrive - Milwaukee School of Engineering/C-/SPA1_Fluid Tracking/cmake-build-debug",
+		"source" : "C:/Users/schuberte/OneDrive - Milwaukee School of Engineering/C-/SPA1_Fluid Tracking"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

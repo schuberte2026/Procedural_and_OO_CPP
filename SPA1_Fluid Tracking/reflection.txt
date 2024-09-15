@@ -1,0 +1,13 @@
+What did you learn from doing this lab?
+I learned how to set up a while loop to intake contents from a file. Additionally,
+I learned how to utilize the while loop to store the contents from the file 
+to use them for operations. While not required, I learned how to break up my program
+into multiple (helper) methods aside from the main method.
+
+What did you find challenging about the lab?
+I found that learning how to read file contents to be challenging. I resolved this by 
+attending office hours and learning how to.
+
+What would you recommend changing if this lab is reused in future years?
+I would recommend providing a quick guide for how to read file contents in C++. We did
+cover this in class, but a cheat sheet would be nice.
