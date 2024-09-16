@@ -9,6 +9,7 @@ using std::endl;
 int total_mL = 0; // keeps a count of the total differential of mL for the patient
 
 int check_differential(const string& time, const string& item) {
+    //this method checks if the differential is large enough to notify
     if (total_mL >= 1000) {
         cout << "after consuming " << item << " at " << time << ", intake exceeds output by " << total_mL << " ml" << endl;
     }
@@ -16,6 +17,7 @@ int check_differential(const string& time, const string& item) {
 }
 
 int check_measurement(const string& item, const int amt_mL, const string& time) {
+    //this method checks which type of measurement occured
     if (item == "urine" || item == "bloodloss" || item == "diarrhea") {
         total_mL -= amt_mL;
     } else {
@@ -38,10 +40,6 @@ int main() {
     }
 
     cout << "the final fluid differential is " << total_mL << " ml" << endl;
-
-
-
-
-
+    
     return 0;
 }
