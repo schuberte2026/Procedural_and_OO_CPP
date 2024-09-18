@@ -1,4 +1,5 @@
 // SPA 1, Fall 2024, Evan Schubert
+
 #include <fstream>
 #include <iostream>
 using std::string;
