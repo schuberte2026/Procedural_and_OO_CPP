@@ -40,6 +40,6 @@ int main() {
     }
 
     cout << "the final fluid differential is " << total_mL << " ml" << endl;
-    
+
     return 0;
 }
