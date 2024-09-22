@@ -6,6 +6,7 @@ const int MAX_SIZE = 3000;
 using std::string;
 using std::cout;
 using std::endl;
+using std::cin;
 
 bool can_match(const string& possible_answer, const string& guess, const string& letter_matches);
 
@@ -17,6 +18,8 @@ bool check_misplaced_match(const string& possible_answer, const string& guess, i
 
 void run_checks();
 
+void read_data();
+
 bool iterate_letter_matches(const string& possible_answer, const string& guess, const string& letter_matches);
 
 //void print_possible_guesses(std::string* possible_guesses, int pg_size, std::string* possible_answers, int pa_size);
@@ -24,7 +27,7 @@ void print_possible_guesses();
 
 int main() {
     run_checks();
-    print_possible_guesses();
+    read_data();
     return 0;
 }
 
@@ -34,6 +37,20 @@ void run_checks() {
     assert( can_match("abcde", "easty", "\?\?---"));
     assert(!can_match("abcde", "abcdf", "....."));
     assert( can_match("abcde", "uvwxy", "-----"));
+}
+
+void read_data() {
+    string possible_answers[MAX_SIZE];
+    string word;
+
+    //reads in words from file until "END" occurs, then it breaks out of while loop
+    while (cin >> word && word != "END") {
+        possible_answers->append(word);
+    }
+
+    for (const auto & possible_answer : possible_answers) {
+        cout << possible_answer << endl;
+    }
 }
 
 // (.) letter in guess matches letter in real word
