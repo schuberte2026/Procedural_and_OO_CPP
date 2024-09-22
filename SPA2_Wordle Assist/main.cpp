@@ -6,7 +6,6 @@ const int MAX_SIZE = 3000;
 using std::string;
 using std::cout;
 using std::endl;
-using std::erase;
 
 bool can_match(const string& possible_answer, const string& guess, const string& letter_matches);
 
