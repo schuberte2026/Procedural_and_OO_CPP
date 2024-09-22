@@ -28,6 +28,7 @@ void print_possible_guesses();
 int main() {
     run_checks();
     read_data();
+    print_possible_guesses();
     return 0;
 }
 
@@ -50,11 +51,12 @@ void read_data() {
         i++;
     }
 
-    for (const string& aWord: possible_answers) {
+    /*for (const string& aWord: possible_answers) {
         if(!aWord.empty()) {
             cout << aWord << endl;
         }
     }
+    */
 }
 
 // (.) letter in guess matches letter in real word
