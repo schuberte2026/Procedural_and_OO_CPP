@@ -51,12 +51,19 @@ void read_data() {
         i++;
     }
 
-    /*for (const string& aWord: possible_answers) {
+    cout << "possible answers: " << endl;
+    for (const string& aWord: possible_answers) {
         if(!aWord.empty()) {
             cout << aWord << endl;
         }
     }
-    */
+
+    //will start by reading and storing aisle from sample
+    while (cin >> word ) {
+        possible_answers[i] = word;
+        i++;
+    }
+
 }
 
 // (.) letter in guess matches letter in real word
