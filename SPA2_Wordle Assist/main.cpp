@@ -44,12 +44,16 @@ void read_data() {
     string word;
 
     //reads in words from file until "END" occurs, then it breaks out of while loop
+    int i = 0;
     while (cin >> word && word != "END") {
-        possible_answers->append(word);
+        possible_answers[i] = word;
+        i++;
     }
 
-    for (const auto & possible_answer : possible_answers) {
-        cout << possible_answer << endl;
+    for (const string& aWord: possible_answers) {
+        if(!aWord.empty()) {
+            cout << aWord << endl;
+        }
     }
 }
 
