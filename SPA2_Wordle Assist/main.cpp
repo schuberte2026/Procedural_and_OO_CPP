@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cassert>
 
-const int MAX_SIZE = 3000;
+const int MAX_SIZE = 3000; //max items to process
 using std::string;
 using std::cout;
 using std::endl;
@@ -28,7 +28,8 @@ void read_possible_answers(string possible_answers[]);
 
 int read_possible_guesses_and_letter_matches(string guesses[], string letter_matches[], int guess_count);
 
-//void print_possible_guesses(std::string* possible_guesses, int pg_size, std::string* possible_answers, int pa_size);
+int validate_possible_guesses(string possible_answers[], string guesses[], string letter_matches[], string possible_guesses[], int num_guesses = 0, int k = 0);
+
 void print_guesses(string guesses[], int guess_count);
 
 void print_possible_guesses(string possible_guesses[], int num_guesses);
@@ -56,43 +57,11 @@ void read_data() {
     string word;
     int num_guesses = 0;
     int guess_count = 0;
-
     //reads in words from file until "END" occurs, then it breaks out of while loop
     read_possible_answers(possible_answers);
-
-
-    // possible_answers: all words before "END"
-    // guesses after "END"
-    // letter_matches after "END"
+    //reads in guesses & letter matches until the end of the file
     guess_count = read_possible_guesses_and_letter_matches(guesses, letter_matches, guess_count);
-
-    int k = 0;
-
-    for (const string& anAnswer: possible_answers) {
-        if (anAnswer.empty()) {
-            break; //no more possible answers
-        }
-
-        bool valid_word = true;
-        int z = 0;
-
-        for(const string& aGuess: guesses) {
-            if (aGuess.empty()) {
-                break; //no more guesses
-            }
-            if(!can_match(anAnswer, aGuess, letter_matches[z])) {
-                valid_word = false;
-                break;
-            }
-            z++;
-        }
-        if (valid_word) {
-            possible_guesses[k] = anAnswer;
-            k++;
-            num_guesses++;
-        }
-
-    }
+    num_guesses = validate_possible_guesses(possible_answers, guesses, letter_matches, possible_guesses);
 
     print_guesses(guesses, guess_count);
     print_possible_guesses(possible_guesses, num_guesses);
@@ -120,13 +89,6 @@ int read_possible_guesses_and_letter_matches(string guesses[], string letter_mat
     return guess_count;
 }
 
-
-
-
-
-// (.) letter in guess matches letter in real word
-// (-) letter in guess not in real word
-// (?) letter appears in real world, but not at the guessed position
 bool can_match(const string& possible_answer, const string& guess, const string& letter_matches) {
     const bool result = iterate_letter_matches(possible_answer, guess, letter_matches);
     return result;
@@ -152,6 +114,26 @@ bool check_letter_matches(const string& possible_answer, const string& guess, co
         default:
             return false;
     }
+}
+
+int validate_possible_guesses(string possible_answers[], string guesses[], string letter_matches[], string possible_guesses[], int num_guesses, int k) {
+    for (int i = 0; !possible_answers[i].empty(); i++) {
+        const string& anAnswer = possible_answers[i];
+        bool valid_word = true;
+        int z = 0;
+        for(int j = 0; !guesses[j].empty(); j++, z++) {
+            const string& aGuess = guesses[j];
+            if(!can_match(anAnswer, aGuess, letter_matches[z])) {
+                valid_word = false;
+                break;
+            }
+        }
+        if (valid_word) {
+            possible_guesses[k++] = anAnswer;
+            num_guesses++;
+        }
+    }
+    return num_guesses;
 }
 
 
@@ -210,5 +192,3 @@ void print_possible_guesses(string possible_guesses[], int num_guesses) {
         }
     }
 }
-
-
