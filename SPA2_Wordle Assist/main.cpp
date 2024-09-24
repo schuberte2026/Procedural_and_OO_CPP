@@ -42,7 +42,11 @@ void run_checks() {
 
 void read_data() {
     string possible_answers[MAX_SIZE];
+    string guesses[MAX_SIZE];
+    string letter_matches[MAX_SIZE];
+    string possible_guesses[MAX_SIZE];
     string word;
+    int num_guesses = 0;
 
     //reads in words from file until "END" occurs, then it breaks out of while loop
     int i = 0;
@@ -59,10 +63,50 @@ void read_data() {
     }
 
     //will start by reading and storing aisle from sample
+    int j = 0;
     while (cin >> word ) {
-        possible_answers[i] = word;
-        i++;
+        guesses[j] = word; //takes in next line as a "guess"
+        cin >> word; // assumes that there will be letter match as next line
+        letter_matches[j] = word;
+        j++;
     }
+    cout << "guesses: " << endl;
+    for (const string& aWord: guesses) {
+        if(!aWord.empty()) {
+            cout << aWord << endl;
+            num_guesses++;
+        }
+    }
+
+    cout << "letter matches: " << endl;
+    for (const string& aWord: letter_matches) {
+        if(!aWord.empty()) {
+            cout << aWord << endl;
+        }
+    }
+
+    for (const string& aWord: possible_answers) {
+        if(!aWord.empty()) {
+            if (can_match(possible_answers[i], guesses[i], letter_matches[i])) {
+                possible_guesses[i] = possible_answers[i];
+            }
+        }
+    }
+
+    cout << "Possible guesses after ";
+    for (const string& guess: guesses) {
+        if(!guess.empty()) {
+            cout << guess << " ";
+        }
+    }
+    cout << ": " << num_guesses << endl;
+
+    for (const string& possible_guess: possible_guesses) {
+        if(!possible_guess.empty()) {
+            cout << possible_guess << endl;
+        }
+    }
+
 
 }
 
