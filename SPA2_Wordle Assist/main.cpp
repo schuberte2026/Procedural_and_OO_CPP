@@ -85,14 +85,6 @@ void read_data() {
         }
     }
 
-    for (const string& aWord: possible_answers) {
-        if(!aWord.empty()) {
-            if (can_match(possible_answers[i], guesses[i], letter_matches[i])) {
-                possible_guesses[i] = possible_answers[i];
-            }
-        }
-    }
-
     cout << "Possible guesses after ";
     for (const string& guess: guesses) {
         if(!guess.empty()) {
@@ -101,9 +93,27 @@ void read_data() {
     }
     cout << ": " << num_guesses << endl;
 
-    for (const string& possible_guess: possible_guesses) {
+    /*for (const string& possible_guess: possible_guesses) {
         if(!possible_guess.empty()) {
             cout << possible_guess << endl;
+        }
+    }
+    cout << ": " << num_guesses << endl;
+    */
+
+    int k = 0;
+    for (const string& aWord: possible_answers) {
+        if(!aWord.empty()) {
+            if (can_match(possible_answers[k], guesses[k], letter_matches[k])) {
+                possible_guesses[k] = possible_answers[k];
+            }
+        }
+        k++;
+    }
+
+    for (const string& guess: possible_guesses) {
+        if(!guess.empty()) {
+            cout << guess << endl;
         }
     }
 
@@ -182,7 +192,8 @@ void print_possible_guesses(std::string* possible_guesses, int pg_size, std::str
 }
 */
 
+
 void print_possible_guesses() {
-    cout << "Possible guesses after : 0" << endl;
 }
+
 
