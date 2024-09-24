@@ -14,7 +14,7 @@ bool check_exact_match(const string& possible_answer, const string& guess, int i
 
 bool check_no_match(const string& possible_answer, const char& c);
 
-bool check_misplaced_match(const string& possible_answer, const string& guess, int index_to_check);
+bool check_misplaced_match(const string& possible_answer, const string& guess, size_t index_to_check);
 
 void run_checks();
 
@@ -55,13 +55,6 @@ void read_data() {
         i++;
     }
 
-    cout << "possible answers: " << endl;
-    for (const string& aWord: possible_answers) {
-        if(!aWord.empty()) {
-            cout << aWord << endl;
-        }
-    }
-
     //will start by reading and storing aisle from sample
     int j = 0;
     while (cin >> word ) {
@@ -70,55 +63,63 @@ void read_data() {
         letter_matches[j] = word;
         j++;
     }
-    cout << "guesses: " << endl;
-    for (const string& aWord: guesses) {
-        if(!aWord.empty()) {
-            cout << aWord << endl;
+
+    // possible_answers: all words before "END"
+    // guesses after "END"
+    // letter_matches after "END"
+
+    int k = 0;
+
+    for (const string& anAnswer: possible_answers) {
+        if (anAnswer.empty()) {
+            break; //no more possible answers
+        }
+
+        bool valid_word = true;
+        int z = 0;
+
+        for(const string& aGuess: guesses) {
+            if (aGuess.empty()) {
+                break; //no more guesses
+            }
+            if(!can_match(anAnswer, aGuess, letter_matches[z])) {
+                valid_word = false;
+                break;
+            }
+            z++;
+        }
+        if (valid_word) {
+            possible_guesses[k] = anAnswer;
+            k++;
             num_guesses++;
         }
+
     }
 
-    cout << "letter matches: " << endl;
-    for (const string& aWord: letter_matches) {
-        if(!aWord.empty()) {
-            cout << aWord << endl;
-        }
-    }
-
+    int cur_index = 0;
     cout << "Possible guesses after ";
     for (const string& guess: guesses) {
         if(!guess.empty()) {
-            cout << guess << " ";
-        }
-    }
-    cout << ": " << num_guesses << endl;
+            cout << guess;
+            cur_index++;
 
-    /*for (const string& possible_guess: possible_guesses) {
-        if(!possible_guess.empty()) {
-            cout << possible_guess << endl;
-        }
-    }
-    cout << ": " << num_guesses << endl;
-    */
-
-    int k = 0;
-    for (const string& aWord: possible_answers) {
-        if(!aWord.empty()) {
-            if (can_match(possible_answers[k], guesses[k], letter_matches[k])) {
-                possible_guesses[k] = possible_answers[k];
+            if (cur_index < num_guesses) {
+                cout << ", ";
             }
         }
-        k++;
     }
 
+    cout << ": " << num_guesses << endl;
     for (const string& guess: possible_guesses) {
         if(!guess.empty()) {
             cout << guess << endl;
         }
     }
-
-
 }
+
+
+
+
 
 // (.) letter in guess matches letter in real word
 // (-) letter in guess not in real word
@@ -129,7 +130,7 @@ bool can_match(const string& possible_answer, const string& guess, const string&
 }
 
 bool iterate_letter_matches(const string& possible_answer, const string& guess, const string& letter_matches) {
-    for (int i = 0; i < letter_matches.size(); i++) {
+    for (size_t i = 0; i < letter_matches.size(); i++) {
         if (letter_matches[i] == '.') {
             //checks if guess character matches character in same position in possible_answer
             if(!check_exact_match(possible_answer, guess, i)) {
@@ -167,10 +168,10 @@ bool check_no_match(const string& possible_answer, const char& c) {
     return possible_answer.find(c) == string::npos;
 }
 
-bool check_misplaced_match(const string& possible_answer, const string& guess, int index_to_check) {
+bool check_misplaced_match(const string& possible_answer, const string& guess, size_t index_to_check) {
     char g_char = guess[index_to_check];
 
-    for (int i = 0; i < possible_answer.size(); i++) {
+    for (size_t i = 0; i < possible_answer.size(); i++) {
         //returns true if the character in guess is in possible_answer, but the user didn't guess the correct position
         if (i != index_to_check && possible_answer[i] == g_char) {
             return true;
