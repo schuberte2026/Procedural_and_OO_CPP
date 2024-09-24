@@ -24,6 +24,10 @@ bool iterate_letter_matches(const string& possible_answer, const string& guess, 
 
 bool check_letter_matches(const string& possible_answer, const string& guess, const string& letter_matches, size_t i);
 
+void read_possible_answers(string possible_answers[]);
+
+int read_possible_guesses_and_letter_matches(string guesses[], string letter_matches[], int guess_count);
+
 //void print_possible_guesses(std::string* possible_guesses, int pg_size, std::string* possible_answers, int pa_size);
 void print_possible_guesses();
 
@@ -52,25 +56,13 @@ void read_data() {
     int guess_count = 0;
 
     //reads in words from file until "END" occurs, then it breaks out of while loop
-    int i = 0;
-    while (cin >> word && word != "END") {
-        possible_answers[i] = word;
-        i++;
-    }
+    read_possible_answers(possible_answers);
 
-    //will start by reading and storing aisle from sample
-    int j = 0;
-    while (cin >> word ) {
-        guesses[j] = word; //takes in next line as a "guess"
-        guess_count++;
-        cin >> word; // assumes that there will be letter match as next line
-        letter_matches[j] = word;
-        j++;
-    }
 
     // possible_answers: all words before "END"
     // guesses after "END"
     // letter_matches after "END"
+    guess_count = read_possible_guesses_and_letter_matches(guesses, letter_matches, guess_count);
 
     int k = 0;
 
@@ -119,6 +111,28 @@ void read_data() {
             cout << guess << endl;
         }
     }
+}
+
+void read_possible_answers(string possible_answers[]) {
+    string word;
+    int i = 0;
+    while (cin >> word && word != "END") {
+        possible_answers[i] = word;
+        i++;
+    }
+}
+
+int read_possible_guesses_and_letter_matches(string guesses[], string letter_matches[], int guess_count) {
+    string word;
+    int j = 0;
+    while (cin >> word ) {
+        guesses[j] = word; //takes in next line as a "guess"
+        guess_count++;
+        cin >> word; // assumes that there will be letter match as next line
+        letter_matches[j] = word;
+        j++;
+    }
+    return guess_count;
 }
 
 
