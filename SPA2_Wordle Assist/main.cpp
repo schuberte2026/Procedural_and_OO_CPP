@@ -29,12 +29,14 @@ void read_possible_answers(string possible_answers[]);
 int read_possible_guesses_and_letter_matches(string guesses[], string letter_matches[], int guess_count);
 
 //void print_possible_guesses(std::string* possible_guesses, int pg_size, std::string* possible_answers, int pa_size);
-void print_possible_guesses();
+void print_guesses(string guesses[], int guess_count);
+
+void print_possible_guesses(string possible_guesses[], int num_guesses);
+
 
 int main() {
     run_checks();
     read_data();
-    print_possible_guesses();
     return 0;
 }
 
@@ -92,25 +94,8 @@ void read_data() {
 
     }
 
-    int cur_index = 0;
-    cout << "Possible guesses after ";
-    for (const string& guess: guesses) {
-        if(!guess.empty()) {
-            cout << guess;
-            cur_index++;
-
-            if (cur_index < guess_count) {
-                cout << ", ";
-            }
-        }
-    }
-
-    cout << ": " << num_guesses << endl;
-    for (const string& guess: possible_guesses) {
-        if(!guess.empty()) {
-            cout << guess << endl;
-        }
-    }
+    print_guesses(guesses, guess_count);
+    print_possible_guesses(possible_guesses, num_guesses);
 }
 
 void read_possible_answers(string possible_answers[]) {
@@ -202,7 +187,28 @@ bool check_misplaced_match(const string& possible_answer, const string& guess, s
 
 
 
-void print_possible_guesses() {
+void print_guesses(string guesses[], const int guess_count) {
+    int cur_index = 0;
+    cout << "Possible guesses after ";
+    for (int i = 0; i < guess_count; i++) {
+        if(!guesses[i].empty()) {
+            cout << guesses[i];
+            cur_index++;
+
+            if (cur_index < guess_count) {
+                cout << ", ";
+            }
+        }
+    }
+}
+
+void print_possible_guesses(string possible_guesses[], int num_guesses) {
+    cout << ": " << num_guesses << endl;
+    for (int i = 0; i < num_guesses; i++) {
+        if(!possible_guesses[i].empty()) {
+            cout << possible_guesses[i] << endl;
+        }
+    }
 }
 
 
