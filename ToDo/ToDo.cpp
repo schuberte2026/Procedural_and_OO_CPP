@@ -1,11 +1,10 @@
 #include <iostream>
 #include <string>
 #include "ToDo.h"
-using namespace std;
 
 ToDo::ToDo() : count{0} { } //Default Constructor
 
-ToDo::ToDo(string first_item) : count{1} { //Parameterized constructor
+ToDo::ToDo(std::string first_item) : count{1} { //Parameterized constructor
     items[0] = first_item;
 }
 
@@ -17,17 +16,17 @@ bool ToDo::full() {
     return count >= MAXITEMS;
 }
 
-void ToDo::add(string next_item) {
+void ToDo::add(std::string next_item) {
     if ( full() )
         throw "Adding item to full todo list.";
     items[count] = next_item;
     ++count;
 }
 
-string ToDo::next_item() {
+std::string ToDo::next_item() {
     if ( empty() )
         throw "Removing item from empty todo list.";
-    string result = items[0];
+    std::string result = items[0];
     for(int i = 0; i < count - 1; ++i)
         items[i] = items[i + 1];
     --count;
@@ -36,8 +35,8 @@ string ToDo::next_item() {
 
 // returns the next item capitalized; this is to illustrate converting
 //   a string to upper case; use tolower to convert to lower case.
-string ToDo::next_item_capitalized() {
-    string item = next_item();
+std::string ToDo::next_item_capitalized() {
+    std::string item = next_item();
     // note use of size_t to initialize i; this avoids warnings when
     //   comparing i to item.length() (since item.length() is generally unsigned)
     for(size_t i = 0; i < item.length(); ++i)
@@ -45,7 +44,7 @@ string ToDo::next_item_capitalized() {
     return item;
 }
 
-string ToDo::operator[](int ix) {
+std::string ToDo::operator[](int ix) {
     if ( ix < 0 || ix >= count )
         throw "Accessing non-existance item";
     return items[ix];
