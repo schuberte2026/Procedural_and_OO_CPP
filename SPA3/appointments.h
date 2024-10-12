@@ -38,6 +38,9 @@ private:
     std::string _description;         // do not change!
 
     std::string remove_white_spaces(const std::string& s);
+
+    std::string check_valid_date(Date date);
+    void print_invalid_dates(Date date, std::string error_type);
 };
 
 // returns true if a's date is earlier than b's date

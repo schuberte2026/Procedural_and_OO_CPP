@@ -28,7 +28,6 @@ int main(int argc, char *argv[]) {
     } catch (const char* msg) {
         cout << "Abnormal termination: " << msg << endl;
     }
-
     return 0;
 }
 

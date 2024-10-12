@@ -21,8 +21,15 @@
 //       has at least one letter in it. DONE
 
 Appointment::Appointment(Date date, std::string description) {
-    this -> _date = date;
-    this-> _description = remove_white_spaces(description);
+    std::string validDate = check_valid_date(date);
+    if (validDate == "no issue") {
+        this -> _date = date;
+        this-> _description = remove_white_spaces(description);
+    } else {
+        print_invalid_dates(date, validDate);
+        this -> _date = Date(0,0,0);
+        this -> _description = "NULL";
+    }
 }
 
 bool before(Appointment a, Appointment b) {
@@ -56,7 +63,9 @@ appointments[num_appointments] = new_appointment;
 //       one to a line DONE?
 void Schedule::write_to_cout() {
     for(int i = 0; i < num_appointments; ++i) {
-        std::cout << appointments[i].to_string() << std::endl;
+        if (appointments[i].description() != "NULL") {
+            std::cout << appointments[i].to_string() << std::endl;
+        }
     }
 }
 
@@ -66,3 +75,28 @@ std::string Appointment::remove_white_spaces(const std::string& s) {
 
     return s.substr(first, last - first + 1);
 }
+
+std::string Appointment::check_valid_date(const Date date) {
+    if (date.month() < 1 || date.month() > 12) {
+        return "month";
+    }
+    if ((date.month() == 1 || date.month() == 3 || date.month()== 5 || date.month() == 7 ||
+        date.month() == 8 || date.month() == 10 || date.month() == 12) && date.day() > 31) {
+        return "day";
+    }
+    if ((date.month() == 4 || date.month() == 6 || date.month()== 9 || date.month() == 11) && date.day() > 30) {
+        return "day";
+        }
+    if (date.month() == 2 && date.day() > 29) {
+        return "day";
+    } if (date.year() > 3000 || date.year() < 2000) {
+        return "year";
+    }
+    return "no issue";
+}
+
+void Appointment::print_invalid_dates(Date date, std::string error_type) {
+    std::cout << "ERROR: invalid " << error_type << " in " << date.month() << "/" << date.day() << "/" << date.year() << std::endl;
+}
+
+
