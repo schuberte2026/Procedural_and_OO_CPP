@@ -20,6 +20,8 @@ public:
         // TODO: add code here - IF NEEDED - to make sure the constructor works
     }
 
+    bool before(Appointment a, Appointment b);
+
     Date date() const { return _date; }
 
     std::string description() const { return _description; }
@@ -29,9 +31,13 @@ public:
         return _date.to_string() + ": " + _description;
     }
 
+
+
 private:
     Date        _date;                // do not change!
     std::string _description;         // do not change!
+
+    std::string remove_white_spaces(const std::string& s);
 };
 
 // returns true if a's date is earlier than b's date

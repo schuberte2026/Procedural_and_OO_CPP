@@ -48,9 +48,29 @@ bool earlier(Date d1, Date d2)
 {
     // TODO: implement this; d1 is earlier than d2 if d1's year is earlier.
     //       If the years are the same, check months, and if the months
-    //       are the same check the days.
+    //       are the same check the days. DONE
+    if (d1.year() < d2.year()) {
+        return true;
+    } else if (d1.year() > d2.year()) {
+        return false;
+    }
 
+    //continues if years were the same
+    if (d1.month() < d2.month()) {
+        return true;
+    } else if (d1.month() > d2.month()) {
+        return false;
+    }
 
+    //continues if months were the same
+    if (d1.day () < d2.day ()) {
+        return true;
+    } else if (d1.day () > d2.day ()) {
+        return false;
+    }
+
+    //both dates are the same
+    return false;
 }
 
 // TODO: if useful to your design, add code to check for valid dates
