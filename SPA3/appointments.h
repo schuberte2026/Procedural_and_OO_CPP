@@ -59,7 +59,7 @@ public:
     // write appointment list to cout in order, one per line
     //  (in production code the destination would be passed
     //  as a parameter, but we're using cout for simplicity)
-    void write_to_cout() const;
+    void write_to_cout();
 
 private:
     static const int MAX_APPOINTMENTS = 20;     // do not change!

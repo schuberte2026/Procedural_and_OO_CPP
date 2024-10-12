@@ -44,7 +44,7 @@ string Date::to_string() const
     return formatted.str();
 }
 
-bool earlier(Date d1, Date d2)
+bool Date::earlier(Date d1, Date d2)
 {
     // TODO: implement this; d1 is earlier than d2 if d1's year is earlier.
     //       If the years are the same, check months, and if the months
