@@ -8,6 +8,8 @@
 //
 
 #include "date.h"
+
+#include <iostream>
 #include <sstream>
 using namespace std;
 
@@ -74,3 +76,48 @@ bool Date::earlier(Date d1, Date d2)
 }
 
 // TODO: if useful to your design, add code to check for valid dates
+bool Date::valid_check() {
+    if (_month  < 1 || _month > 12) {
+        print_invalid_dates("month");
+        return false;
+    }
+    if ((_month == 1 || _month == 3 || _month == 5 || _month == 7 ||
+        _month == 8 || _month == 10 || _month == 12) && _day > 31) {
+        print_invalid_dates("day");
+        return false;
+        }
+    if ((_month == 4 || _month == 6 || _month == 9 || _month == 11) && _day > 30) {
+        print_invalid_dates("day");
+        return false;
+    }
+    if (_month  == 2 && _day > 29) {
+        print_invalid_dates("day");
+        return false;
+    } if (_day == 0) {
+        print_invalid_dates("day");
+        return false;
+    }
+    if (_year > 3000 || _year < 2000) {
+        print_invalid_dates("year");
+        return false;
+    }
+    return true;
+}
+
+void Date::print_invalid_dates(string error_type) {
+    std::string month_str = std::to_string(_month);
+    std::string day_str = std::to_string(_day);
+    std::string year_str = std::to_string(_year);
+    if (month_str.length() < 2) {
+        month_str = "0" + month_str;
+    }
+    if (day_str.length() < 2) {
+        day_str = "0" + day_str;
+    }
+    if (year_str.length() < 4) {
+        for (int i = year_str.length(); i < 4; i++) {
+            year_str = "0" + year_str;
+        }
+    }
+    std::cout << "ERROR: invalid " << error_type << " in " << month_str << "/" << day_str << "/" << year_str << std::endl;
+}

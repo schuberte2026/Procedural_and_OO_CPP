@@ -21,15 +21,8 @@
 //       has at least one letter in it. DONE
 
 Appointment::Appointment(Date date, std::string description) {
-    std::string validDate = check_valid_date(date);
-    if (validDate == "no issue") {
-        this -> _date = date;
-        this-> _description = remove_white_spaces(description);
-    } else {
-        print_invalid_dates(date, validDate);
-        this -> _date = date;
-        this -> _description = "NULL";
-    }
+    this -> _date = date;
+    this-> _description = remove_white_spaces(description);
 }
 
 bool before(Appointment a, Appointment b) {
@@ -39,38 +32,34 @@ bool before(Appointment a, Appointment b) {
 
 void Schedule::add(Appointment new_appointment)
 {
-    int pos = 0;
+    if(new_appointment.get_date().valid_check()) {
+        int pos = 0;
 
-    // TODO: set pos to the position new_appointment would appear in
-    //       appointments[]. That is, write a while loop that terminates when
-    //       pos >= num_appointments or when
-    //       before(appointments[pos], new_appointment) is false DONE
-    while(pos < num_appointments  && before(appointments[pos], new_appointment)) {
-        ++pos;
+        // TODO: set pos to the position new_appointment would appear in
+        //       appointments[]. That is, write a while loop that terminates when
+        //       pos >= num_appointments or when
+        //       before(appointments[pos], new_appointment) is false DONE
+        while(pos < num_appointments  && before(appointments[pos], new_appointment)) {
+            ++pos;
+        }
+        // do not change any of the rest of this method
+        for(int i = num_appointments; i > pos; --i)
+            appointments[i] = appointments[i - 1];
+        if ( pos < num_appointments )
+            appointments[pos] = new_appointment;
+        else
+            appointments[num_appointments] = new_appointment;
+        ++num_appointments;
     }
-
-    // do not change any of the rest of this method
-    for(int i = num_appointments; i > pos; --i)
-    appointments[i] = appointments[i - 1];
-if ( pos < num_appointments )
-appointments[pos] = new_appointment;
-else
-appointments[num_appointments] = new_appointment;
-++num_appointments;
 }
 
 // TODO: implement write_to_cout so it writes all of the appointments,
 //       one to a line DONE?
 void Schedule::write_to_cout() {
-    int num_nulls = 0;
     for(int i = 0; i < num_appointments; ++i) {
-        if (appointments[i].description() != "NULL") {
-            std::cout << appointments[i].to_string() << std::endl;
-        } else {
-            num_nulls++;
-        }
+        std::cout << appointments[i].to_string() << std::endl;
     }
-    if (num_nulls == num_appointments) {
+    if (num_appointments == 0) {
         std::cout << "Empty schedule." << std::endl;
     }
 }
@@ -81,49 +70,4 @@ std::string Appointment::remove_white_spaces(const std::string& s) {
 
     return s.substr(first, last - first + 1);
 }
-
-std::string Appointment::check_valid_date(Date date) {
-    if (date.month() < 1 || date.month() > 12) {
-        return "month";
-    }
-    if ((date.month() == 1 || date.month() == 3 || date.month()== 5 || date.month() == 7 ||
-        date.month() == 8 || date.month() == 10 || date.month() == 12) && date.day() > 31) {
-        return "day";
-    }
-    if ((date.month() == 4 || date.month() == 6 || date.month() == 9 || date.month() == 11) && date.day() > 30) {
-        return "day";
-        }
-    if (date.month() == 2 && date.day() > 29) {
-        return "day";
-    }
-    if (date.day() == 0) {
-        return "day";
-    }
-    if (date.year() > 3000 || date.year() < 2000) {
-        return "year";
-    }
-    return "no issue";
-}
-
-void Appointment::print_invalid_dates(Date date, std::string error_type) {
-    int month = date.month();
-    int day = date.day();
-    int year = date.year();
-    std::string month_str = std::to_string(month);
-    std::string day_str = std::to_string(day);
-    std::string year_str = std::to_string(year);
-    if (month_str.length() < 2) {
-        month_str = "0" + month_str;
-    }
-    if (day_str.length() < 2) {
-        day_str = "0" + day_str;
-    }
-    if (year_str.length() < 4) {
-        for (int i = year_str.length(); i < 4; i++) {
-            year_str = "0" + year_str;
-        }
-    }
-    std::cout << "ERROR: invalid " << error_type << " in " << month_str << "/" << day_str << "/" << year_str << std::endl;
-}
-
 
