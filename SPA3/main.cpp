@@ -4,9 +4,9 @@
 //============================================================================
 
 // include each .h file twice - ensure headers and be read more than once
-#include "Date.h"
+#include "date.h"
 #include "appointments.h"
-#include "Date.h"
+#include "date.h"
 #include "appointments.h"
 
 #include <iostream>
@@ -28,6 +28,7 @@ int main(int argc, char *argv[]) {
     } catch (const char* msg) {
         cout << "Abnormal termination: " << msg << endl;
     }
+
     return 0;
 }
 

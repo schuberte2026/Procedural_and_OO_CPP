@@ -7,7 +7,7 @@
 #define APPOINTMENTS_H
 #include <string>
 
-#include "Date.h"
+#include "date.h"
 
 // Appointment: store an appointment as a date and a description
 class Appointment
@@ -22,13 +22,13 @@ public:
 
     bool before(Appointment a, Appointment b);
 
-    Date date() const { return _date; }
+    Date get_date() const { return _date; }
 
     std::string description() const { return _description; }
 
     // printable form of appointment
     std::string to_string() const {
-        return _date.to_string() + ": " + _description;
+        return get_date().to_string() + ": " + _description;
     }
 
 
