@@ -62,23 +62,13 @@ bool Date::earlier(Date d1, Date d2)
 
 // TODO: if useful to your design, add code to check for valid dates
 bool Date::valid_check() {
+    int days_in_month[] = {31, 29, 31, 30, 31, 30, 31 , 31 , 30, 31 ,30 , 31};
+
     if (_month  < 1 || _month > 12) {
         print_invalid_dates("month");
         return false;
     }
-    if ((_month == 1 || _month == 3 || _month == 5 || _month == 7 ||
-        _month == 8 || _month == 10 || _month == 12) && _day > 31) {
-        print_invalid_dates("day");
-        return false;
-        }
-    if ((_month == 4 || _month == 6 || _month == 9 || _month == 11) && _day > 30) {
-        print_invalid_dates("day");
-        return false;
-    }
-    if (_month  == 2 && _day > 29) {
-        print_invalid_dates("day");
-        return false;
-    } if (_day == 0) {
+    if (_day < 1 || _day > days_in_month[_month - 1]) {
         print_invalid_dates("day");
         return false;
     }
