@@ -1,3 +1,4 @@
+// SPA 3, Fall 2024, Schubert
 //============================================================================
 // Name        : date.cpp
 // Author      : Evan Schubert
@@ -60,10 +61,8 @@ bool Date::earlier(Date d1, Date d2)
     return false; //both dates are the same
 }
 
-// TODO: if useful to your design, add code to check for valid dates
 bool Date::valid_check() {
     int days_in_month[] = {31, 29, 31, 30, 31, 30, 31 , 31 , 30, 31 ,30 , 31};
-
     if (_month  < 1 || _month > 12) {
         print_invalid_dates("month");
         return false;

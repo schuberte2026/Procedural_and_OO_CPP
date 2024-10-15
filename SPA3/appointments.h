@@ -1,3 +1,4 @@
+// SPA 3, Fall 2024, Schubert
 //============================================================================
 // Name        : appointments.h - appointments and a schedule (a collection
 //               of appointments)

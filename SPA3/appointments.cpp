@@ -1,3 +1,4 @@
+// SPA 3, Fall 2024, Schubert
 //============================================================================
 // Name        : appointments.cpp
 // Author      : Evan Schubert
@@ -9,24 +10,13 @@
 
 // add other includes as needed here, but appointments.h must be the FIRST include
 
-// TODO: implement function before() DONE
-
-// TODO: implement the version of Appointment::Appointment that takes
-//       a date and a description. This constructor needs to trim all
-//       leading and trailing spaces from the description. You can use
-//       .erase(0, 1) to remove the first character from a string if it is
-//       a space (until some character is found that's not a space) and
-//       then use .pop_back() to remove the last character until you reach
-//       some character that is not a space. You can assume the description
-//       has at least one letter in it. DONE
+bool before(Appointment a, Appointment b) {
+    return a.get_date().earlier(a.get_date(), b.get_date());
+}
 
 Appointment::Appointment(Date date, std::string description) {
     this -> _date = date;
     this-> _description = remove_white_spaces(description);
-}
-
-bool before(Appointment a, Appointment b) {
-    return a.get_date().earlier(a.get_date(), b.get_date());
 }
 
 void Schedule::add(Appointment new_appointment)
@@ -34,10 +24,6 @@ void Schedule::add(Appointment new_appointment)
     if(new_appointment.get_date().valid_check()) {
         int pos = 0;
 
-        // TODO: set pos to the position new_appointment would appear in
-        //       appointments[]. That is, write a while loop that terminates when
-        //       pos >= num_appointments or when
-        //       before(appointments[pos], new_appointment) is false DONE
         while(pos < num_appointments  && before(appointments[pos], new_appointment)) {
             ++pos;
         }
@@ -52,8 +38,6 @@ void Schedule::add(Appointment new_appointment)
     }
 }
 
-// TODO: implement write_to_cout so it writes all of the appointments,
-//       one to a line DONE?
 void Schedule::write_to_cout() {
     for(int i = 0; i < num_appointments; ++i) {
         std::cout << appointments[i].to_string() << std::endl;
