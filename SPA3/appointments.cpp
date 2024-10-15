@@ -26,8 +26,7 @@ Appointment::Appointment(Date date, std::string description) {
 }
 
 bool before(Appointment a, Appointment b) {
-    Date date;
-    return date.earlier(a.get_date(), b.get_date());
+    return a.get_date().earlier(a.get_date(), b.get_date());
 }
 
 void Schedule::add(Appointment new_appointment)
